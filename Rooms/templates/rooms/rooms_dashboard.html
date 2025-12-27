@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>🏢 PG Room Dashboard</h1>
+
+<style>
+.floor-box { margin:20px auto; width:95%; }
+.floor-title { font-size:22px; font-weight:bold; margin-bottom:10px; color:#333; }
+.room-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:15px; }
+
+.room-card {
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+    cursor:pointer;
+    border:2px solid #ddd;
+    transition: all 0.3s ease;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+.room-card:hover { transform: translateY(-5px); box-shadow:0 5px 15px rgba(0,0,0,0.2); }
+.room-number { font-weight:bold; font-size:18px; margin-bottom:5px; }
+.status { margin-top:5px; font-size:14px; font-weight:bold; margin-bottom:8px; }
+.available { border-left:6px solid #28a745; background:#e8f5e9; color:#155724; }
+.full { border-left:6px solid #dc3545; background:#f8d7da; color:#721c24; }
+.info { font-size:14px; margin:3px 0; }
+@media(max-width:600px) { .room-grid { grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); } }
+</style>
+
+{% for floor, rooms in floors.items %}
+<div class="floor-box">
+    <div class="floor-title">Floor {{ floor }}</div>
+    <div class="room-grid">
+        {% for room in rooms %}
+        <a href="{% url 'room_details' room.room_no %}" style="text-decoration:none;">
+    <div class="room-card {% if room.is_full %}full{% else %}available{% endif %}">
+            <div class="room-number">Room {{ room.room_no }}</div>
+            <div class="status">
+                {% if room.is_full %}Full{% else %}Available{% endif %}
+            </div>
+            <div class="info">Occupied: {{ room.active_persons }}</div>
+            <div class="info">Available Beds: {{ room.available_beds }}</div>
+        </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>All Rooms List</h1>
+<table>
+    <tr><th>Room No</th><th>Floor</th><th>Total Beds</th><th>Status</th></tr>
+    {% for room in rooms %}
+    <tr>
+        <td>{{ room.room_no }}</td>
+        <td>{{ room.floor_no }}</td>
+        <td>{{ room.no_beds }}</td>
+        <td>{% if room.is_available %}Available{% else %}Full{% endif %}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

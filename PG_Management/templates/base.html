@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PG Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* RESET */
+        * { margin:0; padding:0; box-sizing:border-box; font-family:"Poppins", sans-serif; }
+
+        body {
+            background: #f4f5f7;
+            min-height:100vh;
+            color:#0f172a;
+        }
+
+        /* ============================
+           TOP NAVBAR
+        ============================ */
+        .navbar {
+            width:100%;
+            padding:15px 30px;
+            background:#ffffff;
+            border-bottom:1px solid #cbd5e1;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            position:fixed;
+            top:0;
+            left:0;
+            z-index:200;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size:22px;
+            font-weight:600;
+            letter-spacing:1px;
+            color:#0f172a;
+        }
+
+        .nav-links {
+            display:flex;
+            gap:20px;
+        }
+
+        .nav-links a {
+            color:#334155;
+            text-decoration:none;
+            padding:8px 14px;
+            border-radius:8px;
+            transition:0.25s;
+        }
+
+        .nav-links a:hover {
+            background:#38bdf8;
+            color:white;
+            font-weight:bold;
+        }
+
+        /* Hamburger Icon */
+        .hamburger {
+            font-size:28px;
+            cursor:pointer;
+            padding:8px 12px;
+            border-radius:8px;
+            transition:0.3s;
+            color:#0f172a;
+        }
+
+        .hamburger:hover {
+            background: #e2e8f0;
+        }
+
+        /* ============================
+           SIDE PANEL (RIGHT MENU)
+        ============================ */
+        .side-panel {
+            position:fixed;
+            right:-260px;
+            top:0;
+            width:260px;
+            height:100vh;
+            background:#f1f5f9;
+            transition:0.4s ease-in-out;
+            padding:30px 20px;
+            z-index:300;
+            border-left:1px solid #cbd5e1;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.05);
+        }
+
+        .side-panel.open {
+            right:0;
+        }
+
+        .side-panel h3 {
+            margin-bottom:25px;
+            font-size:20px;
+            color:#0f172a;
+            border-bottom:1px solid #cbd5e1;
+            padding-bottom:10px;
+        }
+
+        .side-panel a {
+            display:block;
+            padding:12px;
+            color:#0f172a;
+            text-decoration:none;
+            margin-bottom:10px;
+            border-radius:6px;
+            transition:0.25s;
+        }
+
+        .side-panel a:hover {
+            background:#38bdf8;
+            color:white;
+            font-weight:bold;
+        }
+
+        /* ============================
+           MAIN PAGE CONTENT
+        ============================ */
+        main {
+            padding:110px 30px 40px;
+        }
+
+        .card {
+            background:white;
+            border-radius:15px;
+            padding:25px;
+            box-shadow:0 4px 20px rgba(0,0,0,0.08);
+            border:1px solid #e2e8f0;
+        }
+
+        /* TABLE STYLING */
+        table {
+            width:100%;
+            border-collapse: collapse;
+            margin-top:15px;
+            border-radius:12px;
+            overflow:hidden;
+        }
+
+        th {
+            background:#0f172a;
+            color:white;
+            padding:12px 15px;
+            font-weight:500;
+            text-align:left;
+        }
+
+        td {
+            padding:12px 15px;
+            border-bottom:1px solid #e2e8f0;
+            color:#334155;
+        }
+
+        tr:nth-child(even) { background:#f8fafc; }
+
+        /* BUTTONS */
+        .btn {
+            background:#38bdf8;
+            padding:8px 16px;
+            color:white;
+            border-radius:8px;
+            text-decoration:none;
+            font-weight:500;
+        }
+
+        .btn:hover { background:#0ea5e9; }
+
+        /* RESPONSIVE */
+        @media(max-width:768px){
+            .hamburger { display:block; }
+            .side-panel { right:-260px; }
+            .side-panel.open { right:0; }
+            main { padding:110px 15px 40px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo">🏠 PG Management</div>
+
+        <nav class="nav-links">
+            <a href="{% url 'rooms_dashboard' %}">Rooms</a>
+            <a href="{% url 'add_person' %}">Add Person</a>
+            <a href="{% url 'person_list' %}">Person List</a>
+            <a href="{% url 'admin:index' %}">Admin</a>
+        </nav>
+
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </header>
+
+    <!-- RIGHT SLIDE PANEL -->
+    <aside id="menuPanel" class="side-panel">
+        <h3>Menu</h3>
+        <a href="{% url 'rooms_dashboard' %}">🏢 Rooms Dashboard</a>
+        <a href="{% url 'add_person' %}">➕ Add Person</a>
+        <a href="{% url 'person_list' %}">👥 Person List</a>
+        <a href="{% url 'admin:index' %}">⚙ Admin</a>
+    </aside>
+
+    <!-- CONTENT -->
+    <main>
+        <div class="card">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("menuPanel").classList.toggle("open");
+        }
+    </script>
+
+</body>
+</html>

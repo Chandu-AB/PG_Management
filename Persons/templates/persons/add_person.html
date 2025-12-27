@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Add New Person</h1>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message {% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Form -->
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required placeholder="Enter full name">
+        </div>
+
+        <div class="form-group">
+            <label for="parent_name">Parent Name:</label>
+            <input type="text" id="parent_name" name="parent_name" placeholder="Enter parent name">
+        </div>
+
+        <div class="form-group">
+            <label for="phone_no">Phone Number:</label>
+            <input type="tel" id="phone_no" name="phone_no" required placeholder="Enter phone number">
+        </div>
+
+        <div class="form-group">
+            <label for="adhar_no">Aadhaar Number:</label>
+            <input type="text" id="adhar_no" name="adhar_no" maxlength="14" required
+                   placeholder="xxxx xxxx xxxx" pattern="\d{4}\s\d{4}\s\d{4}" inputmode="numeric" autocomplete="off">
+        </div>    
+
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" placeholder="Enter address"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="room_no">Assign Room:</label>
+            <select id="room_no" name="room_no" required>
+                <option value="">Select Room</option>
+                {% for room in rooms %}
+                    <option value="{{ room.room_no }}">
+                        Room {{ room.room_no }} ({{ room.available_beds }} beds available)
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" required>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">Add Person</button>
+            <a href="{% url 'person_list' %}" class="btn-back">← Back to List</a>
+        </div>
+    </form>
+</div>
+
+<script>
+(function(){
+  const el = document.getElementById('adhar_no');
+  if(!el) return;
+  function formatAadhaar(value){
+    const digits = value.replace(/\D/g,'').slice(0,12);
+    return digits.replace(/(\d{4})(?=\d)/g,'$1 ').trim();
+  }
+
+  el.addEventListener('input', function(e){
+    const start = el.selectionStart;
+    const old = el.value;
+    const formatted = formatAadhaar(old);
+    el.value = formatted;
+    // adjust caret position roughly
+    const diff = el.value.length - old.length;
+    el.selectionStart = el.selectionEnd = Math.max(0, start + diff);
+    el.setCustomValidity('');
+  });
+
+  el.addEventListener('blur', function(){
+    const digits = el.value.replace(/\D/g,'');
+    if(digits.length !== 12){
+      el.setCustomValidity('Aadhaar must be 12 digits.');
+      el.reportValidity();
+    } else {
+      el.setCustomValidity('');
+    }
+  });
+})();
+</script>
+
+<!-- CSS -->
+<style>
+.container {
+    width: 60%;
+    margin: 30px auto;
+    padding: 25px 30px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+h1 { text-align: center; margin-bottom: 25px; color: #333; }
+
+.form-group { margin-bottom: 15px; }
+label { font-weight: bold; display: block; margin-bottom: 5px; color: #444; }
+input[type="text"], input[type="tel"], input[type="date"], textarea, select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+textarea { resize: vertical; height: 80px; }
+
+.form-actions { margin-top: 20px; text-align: center; }
+.btn-submit {
+    padding: 10px 25px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn-submit:hover { background: #218838; }
+
+.btn-back {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-left: 10px;
+    background: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.message { padding: 10px; margin-bottom: 15px; border-radius: 5px; font-weight: bold; }
+.error { background: #f8d7da; color: #721c24; }
+.success { background: #d4edda; color: #155724; }
+</style>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2 class="page-title">📋 Person List - Floor & Room Wise</h2>
+
+  {% regroup room_persons by floor_no as floor_groups %}
+
+  {% for floor in floor_groups %}
+    <h3 class="floor-title">🏢 Floor {{ floor.grouper }}</h3>
+    <hr>
+
+    {% for item in floor.list %}
+      {% with room=item.room data=item.data %}
+        
+        <div class="room-card">
+          <div class="room-header">
+            <h4>Room {{ room.room_no }} (Floor {{ room.floor_no }})</h4>
+            <span class="room-info">
+              Active Residents: {{ data.active_count }} / {{ room.no_beds }}
+            </span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Start Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for p in data.persons %}
+                <tr>
+                  <td>{{ p.name }}</td>
+                  <td>{{ p.phone_no }}</td>
+                  <td>{{ p.start_date }}</td>
+                  <td>
+                    <span class="badge badge-success">Active</span>
+                  </td>
+                  <td>
+                    <a class="btn btn-sm btn-danger" href="{% url 'deactivate_person' p.id %}">
+                      Deactivate
+                    </a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          {% if data.available_beds > 0 %}
+            <a href="{% url 'add_person' %}?room_no={{ room.room_no }}" class="btn btn-success btn-sm add-person-btn">
+              + Add Person
+            </a>
+          {% else %}
+            <span class="full-room-label">Room Full</span>
+          {% endif %}
+        </div>
+
+      {% endwith %}
+    {% endfor %}
+  
+  {% endfor %}
+
+  {% if room_persons|length == 0 %}
+    <p class="no-data">📭 No active persons found.</p>
+  {% endif %}
+</div>
+
+<style>
+.container { width: 90%; margin: 20px auto; font-family: Arial, sans-serif; }
+.page-title { text-align: center; margin-bottom: 30px; color: #333; font-weight: bold; }
+.floor-title { margin-top: 30px; color: #444; font-weight: bold; }
+
+.room-card { background: #f9f9f9; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 25px; padding: 15px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.room-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.room-header h4 { margin: 0; font-weight: bold; color: #007bff; }
+.room-info { font-size: 14px; font-weight: bold; color: #555; }
+
+.table thead th { background: #007bff; color: #fff; }
+.table tbody tr:hover { background: #e6f0ff; }
+.badge-success { background-color: #28a745; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.85rem; }
+
+.btn-sm { font-size: 0.85rem; padding: 5px 10px; border-radius: 5px; }
+.btn-danger { background-color: #dc3545; color: white; text-decoration: none; }
+.btn-danger:hover { background-color: #c82333; color: white; }
+
+.add-person-btn { margin-top: 10px; display: inline-block; background-color: #28a745; color: white; text-decoration: none; padding: 6px 12px; border-radius: 5px; }
+.add-person-btn:hover { background-color: #218838; }
+
+.full-room-label { display: inline-block; margin-top: 10px; color: #dc3545; font-weight: bold; }
+
+.no-data { text-align: center; font-size: 16px; color: #777; margin-top: 30px; }
+</style>
+{% endblock %}

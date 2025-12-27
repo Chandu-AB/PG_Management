@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Room {{ room.room_no }} – Details</h1>
+
+    <div class="room-info">
+        <div class="info-box">
+            <span>Floor: {{ room.floor_no }}</span>
+            <span>Total Beds: {{ room.no_beds }}</span>
+        </div>
+
+        <div class="info-box">
+            <span>Occupied: {{ occupied_beds}}</span>
+            <span>Available Beds: {{ available_beds }}</span>
+        </div>
+
+<div class="info-box">
+    <span class="status {% if room.is_full %}full{% else %}available{% endif %}">
+        {% if room.is_full %}
+            Full
+        {% else %}
+            Available
+        {% endif %}
+    </span>
+</div>
+    </div>
+
+    <h2>Members in this Room</h2>
+
+    {% if persons %}
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Start Date</th>
+            <th>Status</th>
+        </tr>
+
+        {% for p in persons %}
+        <tr>
+            <td>{{ p.name }}</td>
+            <td>{{ p.phone_no }}</td>
+            <td>{{ p.start_date }}</td>
+            <td>
+                {% if p.is_active %}
+                    <span style="color:green;">Active</span>
+                {% else %}
+                    <span style="color:red;">Inactive</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No persons in this room.</p>
+    {% endif %}
+
+    {% if room.is_available %}
+        <a href="{% url 'add_person' %}" class="add-button">+ Add Person</a>
+    {% endif %}
+
+    <a href="{% url 'rooms_dashboard' %}" class="back-btn">← Back to Rooms</a>
+</div>
+
+<style>
+.container { width:80%; margin:30px auto; background:white; padding:30px; border-radius:10px; box-shadow:0 0 10px #ccc; }
+.room-info { display:flex; justify-content:space-between; margin-bottom:30px; padding:20px; background:#e9f5ff; border-radius:10px; border-left:6px solid #007bff; }
+.info-box span { display:block; font-weight:bold; color:#333; }
+.status.available { color:green; font-weight:bold; }
+.status.full { color:red; font-weight:bold; }
+table { width:100%; border-collapse:collapse; margin-top:20px; }
+th, td { padding:12px; text-align:left; border-bottom:1px solid #ddd; }
+th { background:#007bff; color:white; }
+tr:hover { background:#f1f1f1; }
+.add-button, .back-btn { display:inline-block; padding:10px 15px; border-radius:5px; color:white; text-decoration:none; margin-top:20px; }
+.add-button { background:green; }
+.back-btn { background:gray; }
+</style>
+{% endblock %}
