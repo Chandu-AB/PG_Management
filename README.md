@@ -1,4 +1,4 @@
-1) # PG Management System
+ # PG Management System
 
 A web-based **PG (Paying Guest) Management System** to manage rooms, residents, and bookings efficiently. Built with **Django 6.0**, **Python (latest version)**, and **MySQL**.
 
@@ -34,23 +34,23 @@ git clone https://github.com/Chandu-AB/PG_Management.git
 cd PG_Management
 
 
-2)Create and activate virtual environment
+2. **Create and activate virtual environment**
 
-# Windows
-python -m venv venv
-venv\Scripts\activate
+      # Windows
+      python -m venv venv
+      venv\Scripts\activate
+      
+      # Linux / Mac
+      python3 -m venv venv
+      source venv/bin/activate
 
-# Linux / Mac
-python3 -m venv venv
-source venv/bin/activate
 
-
-3)Install dependencies
+3. Install dependencies
 
    pip install -r requirements.txt
 
 
-4)Set up database
+4. Set up database
 
     Install MySQL and create a database (example: pg_management_db)
     
@@ -69,30 +69,38 @@ source venv/bin/activate
       }
   }
 
-5)Apply migrations:
+5. Apply migrations:
 
      python manage.py makemigrations
      python manage.py migrate
 
-6)Create a superuser for admin access:
+6. Create a superuser for admin access:
 
       python manage.py createsuperuser
       # Follow the prompts to set username, email, and password
 
 
-7)Run the server:
+7. Run the server:
      python manage.py runserver
      Open your browser and visit: http://127.0.0.1:8000/
 
 
-🖼️ Screenshots
+## 🖼️ Screenshots
 
+**Room Dashboard**  
+![Room Dashboard](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Roomdashboard.png)
 
-Room Dashboard
+**Add Person Page**  
+![Add Person](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Add_person.png)
 
-Add Person
-Person List (Room-wise)
+**Room Details**  
+![Room Details](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Room_details.png)
 
+**Person List (Room-wise)**  
+![Person List](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/person_list.png)
+
+**Admin Panel**  
+![Admin Panel](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/admin.png)
 
 👤 Admin Access
 
