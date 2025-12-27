@@ -87,20 +87,16 @@ cd PG_Management
 
 ## 🖼️ Screenshots
 
-**Room Dashboard**  
-![Room Dashboard](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Roomdashboard.png)
+[![Room Dashboard](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Roomdashboard.png)](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Roomdashboard.png)
 
-**Add Person Page**  
-![Add Person](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Add_person.png)
+[![Add Person](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Add_person.png)](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Add_person.png)
 
-**Room Details**  
-![Room Details](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Room_details.png)
+[![Room Details](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Room_details.png)](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Room_details.png)
 
-**Person List (Room-wise)**  
-![Person List](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/person_list.png)
+[![Person List](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/person_list.png)](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/person_list.png)
 
-**Admin Panel**  
-![Admin Panel](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/admin.png)
+[![Admin Panel](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/admin.png)](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/admin.png)
+
 
 👤 Admin Access
 
