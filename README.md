@@ -88,18 +88,6 @@ cd PG_Management
      Open your browser and visit: http://127.0.0.1:8000/
 
 
-## 🖼️ Screenshots
-
-[![Room Dashboard](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Roomdashboard.png)](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Roomdashboard.png)
-
-[![Add Person](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Add_person.png)](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Add_person.png)
-
-[![Room Details](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Room_details.png)](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/Room_details.png)
-
-[![Person List](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/person_list.png)](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/person_list.png)
-
-[![Admin Panel](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/admin.png)](https://raw.githubusercontent.com/Chandu-AB/PG_Management/main/screenshots/admin.png)
-
 
 👤 Admin Access
 
