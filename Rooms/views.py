@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from .models import Room
 from Persons.models import Person
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def add_room(request):
     if request.method == 'POST':
         room_no = request.POST.get('room_no')
@@ -23,7 +25,7 @@ def add_room(request):
     return render(request, 'rooms/add_room.html')
 
 
-
+@login_required(login_url='login')
 def rooms_dashboard(request):
     rooms = Room.objects.all().order_by("floor_no", "room_no")
 
@@ -33,7 +35,8 @@ def rooms_dashboard(request):
         floors.setdefault(room.floor_no, []).append(room)
 
     return render(request, "rooms/rooms_dashboard.html", {"floors": floors})
-  
+
+@login_required
 def room_details(request, room_no):
     room = get_object_or_404(Room, room_no=room_no)
 

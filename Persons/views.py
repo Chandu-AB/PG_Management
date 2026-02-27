@@ -13,9 +13,9 @@ def add_person(request):
         # Keep only digits
         adhar_digits = ''.join(ch for ch in adhar_raw if ch.isdigit())
         # Validate length (Aadhaar should be 12 digits)
-        if len(adhar_digits) != 12:
-            messages.error(request, "Please enter a valid 12-digit Aadhaar number.")
-            return redirect("add_person")
+        # if len(adhar_digits) != 12:
+        #     messages.error(request, "Please enter a valid 12-digit Aadhaar number.")
+        #     return redirect("add_person")
         # Format Aadhaar number with spaces after every 4 digits
         adhar_no = f"{adhar_digits[:4]} {adhar_digits[4:8]} {adhar_digits[8:12]}"
         address = request.POST.get("address")
@@ -63,6 +63,7 @@ def add_person(request):
 
 
 def update_room_availability(room):
+    
     active_persons_per_room = Person.objects.filter(room_no=room, is_active=True).count()
 
     if active_persons_per_room >= room.no_beds:

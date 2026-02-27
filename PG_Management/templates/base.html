@@ -183,26 +183,60 @@
 <body>
 
     <!-- NAVBAR -->
-    <header class="navbar">
-        <div class="logo">🏠 PG Management</div>
+ <header class="navbar">
+    <div class="logo">🏠 PG Management</div>
 
-        <nav class="nav-links">
-            <a href="{% url 'rooms_dashboard' %}">Rooms</a>
-            <a href="{% url 'add_person' %}">Add Person</a>
-            <a href="{% url 'person_list' %}">Person List</a>
-            <a href="{% url 'admin:index' %}">Admin</a>
-        </nav>
+    <nav class="nav-links">
+        <a href="{% url 'rooms_dashboard' %}">Rooms</a>
+        <a href="{% url 'add_person' %}">Add Person</a>
+        <a href="{% url 'person_list' %}">Person List</a>
+
+       
+    </nav>
+
+    <div style="display:flex; align-items:center; gap:15px;">
+
+        {% if request.user.is_authenticated %}
+            <span style="font-weight:500;">
+                👤 {{ request.user.username }}
+            </span>
+
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit"
+                    style="padding:6px 12px; border:none; border-radius:6px;
+                    background:#ef4444; color:white; cursor:pointer;">
+                    Logout
+                </button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn">Login</a>
+        {% endif %}
 
         <div class="hamburger" onclick="toggleMenu()">☰</div>
-    </header>
+
+    </div>
+</header>
 
     <!-- RIGHT SLIDE PANEL -->
     <aside id="menuPanel" class="side-panel">
+        {% if request.user.is_authenticated %}
+    <a href="#">👤 {{ request.user.username }}</a>
+
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit"
+            style="width:100%; padding:10px; background:#ef4444;
+            border:none; color:white; border-radius:6px; cursor:pointer;">
+            Logout
+        </button>
+    </form>
+{% endif %}
         <h3>Menu</h3>
         <a href="{% url 'rooms_dashboard' %}">🏢 Rooms Dashboard</a>
         <a href="{% url 'add_person' %}">➕ Add Person</a>
         <a href="{% url 'person_list' %}">👥 Person List</a>
-        <a href="{% url 'admin:index' %}">⚙ Admin</a>
+        <!-- <a href="{% url 'admin:index' %}">⚙ Admin</a> -->
     </aside>
 
     <!-- CONTENT -->
@@ -213,9 +247,38 @@
     </main>
 
     <script>
-        function toggleMenu() {
-            document.getElementById("menuPanel").classList.toggle("open");
+         const menuPanel = document.getElementById("menuPanel");
+    const hamburger = document.querySelector(".hamburger");
+
+    function toggleMenu() {
+        menuPanel.classList.toggle("open");
+    }
+
+    // Close when clicking outside
+    document.addEventListener("click", function(event) {
+        if (
+            menuPanel.classList.contains("open") &&
+            !menuPanel.contains(event.target) &&
+            !hamburger.contains(event.target)
+        ) {
+            menuPanel.classList.remove("open");
         }
+    });
+
+    // Close when clicking any link inside side panel
+    const menuLinks = menuPanel.querySelectorAll("a");
+    menuLinks.forEach(link => {
+        link.addEventListener("click", () => {
+            menuPanel.classList.remove("open");
+        });
+    });
+
+    // Close when pressing ESC key
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            menuPanel.classList.remove("open");
+        }
+    });
     </script>
 
 </body>
