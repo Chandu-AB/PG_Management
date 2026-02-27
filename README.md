@@ -89,16 +89,6 @@ cd PG_Management
 
 
 
-👤 Admin Access
-
-Superuser can view all residents, including deactivated ones
-
-Manage room availability and active residents
-
-Deactivated residents remain in the database but do not occupy bed counts
-
-
-
 ⚡ Notes
 
 Only active residents are counted for room availability
