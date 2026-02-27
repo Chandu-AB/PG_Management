@@ -6,8 +6,9 @@ A web-based **PG (Paying Guest) Management System** to manage rooms, residents, 
 
 ## 📌 Features
 
-- 🔐 Secure user authentication (Login & Logout)
-- Role-based access control (Admin-only features)
+- 🔐 User Registration (New users can create an account)
+- 🔑 Secure Login & Logout functionality
+- 🛡️ Role-based access control (Admin-only features)
 - Add, update, and deactivate residents  
 - Room-wise and floor-wise management  
 - Track active and available beds  
